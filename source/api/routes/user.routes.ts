@@ -1,5 +1,6 @@
-import express from "express";
+import express, { NextFunction } from "express";
 import passport from "passport";
+import { Request, Response } from "express";
 import {
     REGISTER_USER_ROUTE,
     GOOGLE_LOGIN_ROUTE,
@@ -24,6 +25,17 @@ userRoutes.get(
 
 userRoutes.get(
     GOOGLE_AUTH_CALLBACK_ROUTE,
-    passport.authenticate("google", { failureRedirect: "/login" })
+    (req: Request, res: Response, next: NextFunction) => {
+        passport.authenticate(
+            "google",
+            (err: Error, user: boolean, info: any) => {
+                if (info?.success) {
+                    res.end();
+                } else {
+                    res.redirect("/login");
+                }
+            }
+        )(req, res, next);
+    }
 );
 export = userRoutes;

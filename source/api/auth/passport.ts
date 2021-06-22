@@ -42,7 +42,7 @@ const loadPassport = (app: Application) => {
                             const token = generateToken(newUser._id as string);
                             if (token) {
                                 done(null, false, {
-                                    status: true,
+                                    success: true,
                                     token: token,
                                     message: label.auth.loginSuccessful,
                                     developerMessage: "",
@@ -51,7 +51,7 @@ const loadPassport = (app: Application) => {
                             }
                         } else {
                             done(null, false, {
-                                status: false,
+                                success: false,
                                 token: null,
                                 message: label.auth.emailPasswordError,
                                 developerMessage: "",
@@ -60,7 +60,7 @@ const loadPassport = (app: Application) => {
                     }
                 } catch (error) {
                     done(null, false, {
-                        status: false,
+                        success: false,
                         token: null,
                         message: label.auth.loginError,
                         developerMessage: error.message,
@@ -102,8 +102,8 @@ const loadPassport = (app: Application) => {
                         await userFound.save();
                         const token = generateToken(userFound._id);
                         if (token) {
-                            done(null, false, {
-                                status: "Success",
+                            done(null, true, {
+                                success: true,
                                 token: token,
                                 message: label.auth.loginSuccessful,
                                 developerMessage: "",
@@ -120,7 +120,7 @@ const loadPassport = (app: Application) => {
                             const token = generateToken(user._id);
                             if (token) {
                                 done(null, false, {
-                                    status: true,
+                                    success: true,
                                     token: token,
                                     message: label.auth.loginSuccessful,
                                     developerMessage: "",
@@ -131,7 +131,7 @@ const loadPassport = (app: Application) => {
                     }
                 } catch (error) {
                     done(null, false, {
-                        status: false,
+                        success: false,
                         token: null,
                         message: label.auth.loginError,
                         developerMessage: error.message,
