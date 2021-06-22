@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 export const encryptPassword = async (
     plainPassword: string,
@@ -26,6 +27,10 @@ export const decryptPassword = async (
         console.error(error);
         return false;
     }
+};
+
+export const generateToken = (id: string) => {
+    return jwt.sign(id, process.env.ACCESS_TOKEN_SECRET as string);
 };
 
 type passwordError = {
