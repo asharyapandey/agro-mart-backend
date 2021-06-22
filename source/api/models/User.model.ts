@@ -10,6 +10,7 @@ export interface UserData {
 export interface UserDocument extends UserData, mongoose.Document {
     createdAt: Date;
     updatedAt: Date;
+    isArchived: boolean;
 }
 
 export const userSchema = new mongoose.Schema(
@@ -30,6 +31,11 @@ export const userSchema = new mongoose.Schema(
         password: {
             type: String,
             required: true,
+        },
+        isArchived: {
+            type: Boolean,
+            required: true,
+            default: false,
         },
     },
     {
