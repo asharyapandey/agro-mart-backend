@@ -1,7 +1,7 @@
 {
-    "name": "backend-initial-setup",
+    "name": "agro-mart-backend",
     "version": "1.0.0",
-    "description": "-   Typescript\r -   mongoose",
+    "description": "Backend for Agro Mart",
     "main": "index.js",
     "scripts": {
         "build": "rm -rf build/ && prettier --write source/ && tsc",

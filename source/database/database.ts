@@ -6,7 +6,7 @@ export default async (MONGO_URI: string) => {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });
-        console.info(`MongoDB is connected\n URI: ${MONGO_URI}`);
+        console.info(`MongoDB is connected\nURI: ${MONGO_URI}`);
     } catch (error) {
         console.error(error);
     }
