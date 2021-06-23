@@ -5,6 +5,7 @@ export interface UserData {
     password: string;
     fullName: string;
     image: string;
+    permissionLevel: number;
 }
 
 export interface UserDocument extends UserData, mongoose.Document {
@@ -27,6 +28,10 @@ export const userSchema = new mongoose.Schema(
         image: {
             type: String,
             required: false,
+        },
+        permissionLevel: {
+            type: Number,
+            required: true,
         },
         password: {
             type: String,

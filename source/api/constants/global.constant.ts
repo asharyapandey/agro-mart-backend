@@ -1,0 +1,3 @@
+export const ADMIN_PERMISSION_LEVEL = 0;
+export const VENDOR_PERMISSION_LEVEL = 1;
+export const FARMER_PERMISSION_LEVEL = 2;

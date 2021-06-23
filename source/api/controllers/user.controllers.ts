@@ -15,7 +15,7 @@ export const registerUser = async (
     next: NextFunction
 ) => {
     try {
-        const { email, fullName, password } = req.body;
+        const { email, fullName, permissionLevel, password } = req.body;
         const isUser = await User.findOne({ email, isArchived: false });
         // user exists
         if (isUser) {
@@ -38,6 +38,7 @@ export const registerUser = async (
                 const userObj = new User({
                     email,
                     fullName,
+                    permissionLevel,
                     password: hash,
                     image: "dummy.png",
                 });

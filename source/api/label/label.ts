@@ -9,5 +9,9 @@ export default {
         loginError: "Could not login into the account. Please Try Again.",
         emailPasswordError:
             "Either Email or password is incorrect. Please Try Again.",
+
+        noTokenFound: "No Token Found in header.",
+        tokenDidNotMatch: "Token sent did not match.",
+        authenticationFailed: "Could not authenticate user.",
     },
 };

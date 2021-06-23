@@ -48,7 +48,7 @@ userRoutes.get(
             "google",
             (err: Error, user: boolean, info: any) => {
                 if (info?.success) {
-                    res.end();
+                    res.status(SUCCESS).json(info);
                 } else {
                     res.redirect("/login");
                 }
