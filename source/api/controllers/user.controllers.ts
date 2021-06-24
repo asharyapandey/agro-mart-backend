@@ -54,7 +54,7 @@ export const registerUser = async (
     } catch (error) {
         console.error(error);
         res.status(INTERNAL_SERVER_ERROR).json({
-            success: true,
+            success: false,
             message: label.auth.couldNotRegisterUser,
             developerMessage: error.message,
             result: [],

@@ -13,5 +13,7 @@ export default {
         noTokenFound: "No Token Found in header.",
         tokenDidNotMatch: "Token sent did not match.",
         authenticationFailed: "Could not authenticate user.",
+        invalidToken: "The token provided is invalid.",
+        accessNotGranted: "Access not granted to perform the operation.",
     },
 };
