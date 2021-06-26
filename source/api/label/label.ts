@@ -16,4 +16,13 @@ export default {
         invalidToken: "The token provided is invalid.",
         accessNotGranted: "Access not granted to perform the operation.",
     },
+    unit: {
+        unitsFetched: "Units were Fetched.",
+        unitsFetchError: "Couldn't fetch the units.",
+        unitsAdded: "Units were Added.",
+        unitsAddError: "Couldn't Add the unit.",
+        unitsDeleted: "Unit were Deleted.",
+        unitsDeleteError: "Couldn't delete the unit.",
+        unitNotFound: "Unit Not Found.",
+    },
 };

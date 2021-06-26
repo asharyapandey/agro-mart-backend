@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import path from "path";
 import passport from "passport";
 import loadPassport from "../api/auth/passport";
+import unitRoutes from "../api/routes/unit.routes";
 
 const VERSION = "/api/v1";
 
@@ -33,5 +34,15 @@ loadPassport(app);
 
 // adding routes
 app.use(VERSION, userRoutes);
+app.use(VERSION, unitRoutes);
+
+app.use((req: Request, res: Response) => {
+    return res.status(404).json({
+        success: false,
+        message: "404! Route Not Found.",
+        developerMessage: "",
+        result: [],
+    });
+});
 
 export default app;
