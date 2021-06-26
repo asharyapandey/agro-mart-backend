@@ -18,6 +18,8 @@ export const authenticateToken = async (
         if (!authorization) {
             throw new Error(label.auth.noTokenFound);
         } else {
+            console.log(authorization);
+            console.log(process?.env?.ACCESS_TOKEN_SECRET);
             const decodedJwt: any = jwt.verify(
                 authorization,
                 process?.env?.ACCESS_TOKEN_SECRET as string
@@ -38,6 +40,7 @@ export const authenticateToken = async (
             }
         }
     } catch (err) {
+        console.log(err);
         res.status(INTERNAL_SERVER_ERROR).json({
             status: "Failure",
             message: label.auth.authenticationFailed,

@@ -32,7 +32,7 @@ export const searchUnit = async (
                 success: true,
                 message: label.unit.unitsFetched,
                 developerMessage: "",
-                result: [],
+                result: unitFound,
                 page,
                 totalCount: totalUnits,
             });
@@ -94,12 +94,16 @@ export const deleteUnit = async (req: Request, res: Response) => {
         const unit = await Unit.findOne({ _id: unitID, isArchived: false });
 
         if (unit) {
-            res.status(SUCCESS).json({
+            unit.isArchived = true;
+            const deletedUnit = await unit.save();
+            return res.status(SUCCESS).json({
                 success: true,
                 message: label.unit.unitsDeleted,
                 developerMessage: "",
-                result: unit,
+                result: deletedUnit,
             });
+        } else {
+            throw new Error(label.unit.unitNotFound);
         }
     } catch (error) {
         console.error(error);
@@ -117,18 +121,20 @@ export const editUnit = async (req: Request, res: Response) => {
     const { unit, displayName } = req.body;
 
     try {
-        const currentUnit = await Unit.findOneAndUpdate(
-            { _id: unitID, isArchived: false },
-            { $set: { unit: unit, displayName } },
-            { new: true }
-        );
+        const currentUnit = await Unit.findOne({
+            _id: unitID,
+            isArchived: false,
+        });
 
         if (currentUnit) {
+            currentUnit.unit = unit;
+            currentUnit.displayName = displayName;
+            const updatedUnit = await currentUnit.save();
             res.status(SUCCESS).json({
                 success: true,
                 message: label.unit.unitsAdded,
                 developerMessage: "",
-                result: currentUnit,
+                result: updatedUnit,
             });
         } else {
             throw new Error(label.unit.unitNotFound);

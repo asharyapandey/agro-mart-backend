@@ -30,7 +30,7 @@ export const decryptPassword = async (
 };
 
 export const generateToken = (id: string) => {
-    return jwt.sign({ id }, process.env.ACCESS_TOKEN_SECRET as string);
+    return jwt.sign({ id }, process?.env?.ACCESS_TOKEN_SECRET as string);
 };
 
 type passwordError = {
