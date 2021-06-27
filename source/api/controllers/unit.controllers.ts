@@ -132,7 +132,7 @@ export const editUnit = async (req: Request, res: Response) => {
             const updatedUnit = await currentUnit.save();
             res.status(SUCCESS).json({
                 success: true,
-                message: label.unit.unitsAdded,
+                message: label.unit.unitsUpdated,
                 developerMessage: "",
                 result: updatedUnit,
             });
@@ -143,7 +143,7 @@ export const editUnit = async (req: Request, res: Response) => {
         console.error(error);
         res.status(INTERNAL_SERVER_ERROR).json({
             success: false,
-            message: label.unit.unitsAddError,
+            message: label.unit.unitsUpdateError,
             developerMessage: error.message,
             result: {},
         });

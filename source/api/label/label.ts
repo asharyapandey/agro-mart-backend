@@ -24,5 +24,18 @@ export default {
         unitsDeleted: "Unit is Deleted.",
         unitsDeleteError: "Couldn't delete the unit.",
         unitNotFound: "Unit Not Found.",
+        unitsUpdated: "Unit is Deleted.",
+        unitsUpdateError: "Couldn't delete the unit.",
+    },
+    category: {
+        categoryFetched: "Category is Fetched.",
+        categoryFetchError: "Couldn't fetch the Category.",
+        categoryAdded: "Category is Added.",
+        categoryAddError: "Couldn't Add the Category.",
+        categoryDeleted: "Category is Deleted.",
+        categoryDeleteError: "Couldn't delete the Category.",
+        categoryNotFound: "Category Not Found.",
+        categoryUpdated: "Category is Deleted.",
+        categoryUpdateError: "Couldn't delete the Category.",
     },
 };

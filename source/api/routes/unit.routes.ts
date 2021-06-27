@@ -9,7 +9,7 @@ import {
     deleteUnit,
     editUnit,
     searchUnit,
-} from "../controllers/unit.controller";
+} from "../controllers/unit.controllers";
 
 const unitRoutes = express.Router();
 
