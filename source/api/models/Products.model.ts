@@ -1,30 +1,41 @@
 import mongoose from "mongoose";
 
-export interface CategoryData {
+export interface ProductData {
+    productName: string;
+    unit: string;
     category: string;
-    displayName: string;
     image: string;
     slug: string;
 }
 
-export interface CategoryDocument extends CategoryData, mongoose.Document {
+export interface ProductDocument extends ProductData, mongoose.Document {
     createdAt: Date;
     updatedAt: Date;
     isArchived: boolean;
 }
 
-export const categorySchema = new mongoose.Schema(
+export const productSchema = new mongoose.Schema(
     {
-        category: {
+        productName: {
             type: String,
             required: true,
             unique: true,
+        },
+        category: {
+            type: mongoose.Schema.Types.ObjectId,
+            required: true,
+            ref: "category",
+        },
+        unit: {
+            type: mongoose.Schema.Types.ObjectId,
+            required: true,
+            ref: "unit",
         },
         slug: {
             type: String,
             required: false,
         },
-        displayName: {
+        image: {
             type: String,
             required: false,
         },
@@ -39,6 +50,6 @@ export const categorySchema = new mongoose.Schema(
     }
 );
 
-const Category = mongoose.model<CategoryDocument>("category", categorySchema);
+const Product = mongoose.model<ProductDocument>("product", productSchema);
 
-export default Category;
+export default Product;

@@ -15,6 +15,8 @@ export default {
         authenticationFailed: "Could not authenticate user.",
         invalidToken: "The token provided is invalid.",
         accessNotGranted: "Access not granted to perform the operation.",
+
+        validation: (field: string) => `${field} is required for Registration`,
     },
     unit: {
         unitsFetched: "Units is Fetched.",

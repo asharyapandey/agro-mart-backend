@@ -2,7 +2,7 @@ import express from "express";
 import {
     authenticateToken,
     isAdmin,
-} from "../../middleware/authentication.middleware";
+} from "../middleware/authentication.middleware";
 import { EDIT_DELETE_UNIT, GET_ADD_UNIT } from "../constants/unit.constants";
 import {
     addUnit,

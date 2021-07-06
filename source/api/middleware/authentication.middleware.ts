@@ -3,10 +3,10 @@ import jwt from "jsonwebtoken";
 import {
     ADMIN_PERMISSION_LEVEL,
     FARMER_PERMISSION_LEVEL,
-} from "../api/constants/global.constant";
-import { INTERNAL_SERVER_ERROR } from "../api/constants/status-codes.constants";
-import label from "../api/label/label";
-import User from "../api/models/User.model";
+} from "../constants/global.constant";
+import { INTERNAL_SERVER_ERROR } from "../constants/status-codes.constants";
+import label from "../label/label";
+import User from "../models/User.model";
 
 export const authenticateToken = async (
     req: Request,
@@ -18,8 +18,6 @@ export const authenticateToken = async (
         if (!authorization) {
             throw new Error(label.auth.noTokenFound);
         } else {
-            console.log(authorization);
-            console.log(process?.env?.ACCESS_TOKEN_SECRET);
             const decodedJwt: any = jwt.verify(
                 authorization,
                 process?.env?.ACCESS_TOKEN_SECRET as string

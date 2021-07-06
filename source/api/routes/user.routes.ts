@@ -9,10 +9,11 @@ import {
 } from "../constants/user.constants";
 import { registerUser } from "../controllers/user.controllers";
 import { SUCCESS } from "../constants/status-codes.constants";
+import { validateRegisterBody } from "../middleware/user.middlewares";
 
 const userRoutes = express.Router();
 
-userRoutes.post(REGISTER_USER_ROUTE, registerUser);
+userRoutes.post(REGISTER_USER_ROUTE, validateRegisterBody, registerUser);
 
 userRoutes.post(
     LOCAL_LOGIN_ROUTE,

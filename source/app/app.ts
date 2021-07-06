@@ -6,6 +6,7 @@ import path from "path";
 import passport from "passport";
 import loadPassport from "../api/auth/passport";
 import unitRoutes from "../api/routes/unit.routes";
+import categoryRoutes from "../api/routes/category.routes";
 
 const VERSION = "/api/v1";
 
@@ -35,6 +36,7 @@ loadPassport(app);
 // adding routes
 app.use(VERSION, userRoutes);
 app.use(VERSION, unitRoutes);
+app.use(VERSION, categoryRoutes);
 
 app.use((req: Request, res: Response) => {
     return res.status(404).json({
