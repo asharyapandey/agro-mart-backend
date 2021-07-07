@@ -28,7 +28,9 @@ if (env === "development") {
         path: path.join(__dirname, "../", "../", ".env.development"),
     });
 } else {
-    dotenv.config({ path: `${__dirname}/.env.development` });
+    dotenv.config({
+        path: path.join(__dirname, "../", "../", ".env.production"),
+    });
 }
 
 loadPassport(app);
