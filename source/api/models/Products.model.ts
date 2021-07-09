@@ -4,8 +4,8 @@ export interface ProductData {
     productName: string;
     unit: string;
     category: string;
-    image: string;
     slug: string;
+    kalimatiPrice: number;
 }
 
 export interface ProductDocument extends ProductData, mongoose.Document {
@@ -35,9 +35,10 @@ export const productSchema = new mongoose.Schema(
             type: String,
             required: false,
         },
-        image: {
-            type: String,
-            required: false,
+        kalimatiPrice: {
+            type: Number,
+            required: true,
+            default: 0,
         },
         isArchived: {
             type: Boolean,

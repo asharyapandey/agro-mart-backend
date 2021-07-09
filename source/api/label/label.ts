@@ -28,6 +28,7 @@ export default {
         unitNotFound: "Unit Not Found.",
         unitsUpdated: "Unit is Deleted.",
         unitsUpdateError: "Couldn't delete the unit.",
+        validation: (field: string) => `${field} is required for Unit.`,
     },
     category: {
         categoryFetched: "Category is Fetched.",
@@ -39,5 +40,9 @@ export default {
         categoryNotFound: "Category Not Found.",
         categoryUpdated: "Category is Deleted.",
         categoryUpdateError: "Couldn't delete the Category.",
+        validation: (field: string) => `${field} is required for Category.`,
+    },
+    product: {
+        validation: (field: string) => `${field} is required for Product.`,
     },
 };

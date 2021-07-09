@@ -10,12 +10,19 @@ import {
     editUnit,
     searchUnit,
 } from "../controllers/unit.controllers";
+import { validateUnitBody } from "../middleware/unit.middlewares";
 
 const unitRoutes = express.Router();
 
 unitRoutes.get(GET_ADD_UNIT, authenticateToken, searchUnit);
 
-unitRoutes.post(GET_ADD_UNIT, authenticateToken, isAdmin, addUnit);
+unitRoutes.post(
+    GET_ADD_UNIT,
+    authenticateToken,
+    isAdmin,
+    validateUnitBody,
+    addUnit
+);
 
 unitRoutes.put(EDIT_DELETE_UNIT, authenticateToken, isAdmin, editUnit);
 

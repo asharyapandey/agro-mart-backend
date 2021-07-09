@@ -13,6 +13,7 @@ import {
     editCategory,
     searchCategory,
 } from "../controllers/category.controllers";
+import { validateCategoryBody } from "../middleware/category.middleware";
 
 const categoryRoutes = express.Router();
 
@@ -23,7 +24,13 @@ categoryRoutes.get(
     searchCategory
 );
 
-categoryRoutes.post(GET_ADD_CATEGORY, authenticateToken, isAdmin, addCategory);
+categoryRoutes.post(
+    GET_ADD_CATEGORY,
+    authenticateToken,
+    isAdmin,
+    validateCategoryBody,
+    addCategory
+);
 
 categoryRoutes.put(
     EDIT_DELETE_CATEGORY,

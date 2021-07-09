@@ -58,13 +58,12 @@ export const addCategory = async (
     res: Response,
     next: NextFunction
 ) => {
-    const { category, displayName, image, slug } = req.body;
+    const { category, displayName, slug } = req.body;
 
     try {
         const categoryObj = new Category({
             category,
             displayName,
-            image,
             slug,
         });
         const categoryData = await categoryObj.save();
@@ -122,7 +121,7 @@ export const deleteCategory = async (req: Request, res: Response) => {
 
 export const editCategory = async (req: Request, res: Response) => {
     const categoryID = req.params.categoryID;
-    const { category, displayName, image, slug } = req.body;
+    const { category, displayName, slug } = req.body;
 
     try {
         const currentCategory = await Category.findOne({
@@ -133,7 +132,6 @@ export const editCategory = async (req: Request, res: Response) => {
         if (currentCategory) {
             currentCategory.category = category;
             currentCategory.displayName = displayName;
-            currentCategory.image = image;
             currentCategory.slug = slug;
             const updatedCategory = await currentCategory.save();
             res.status(SUCCESS).json({

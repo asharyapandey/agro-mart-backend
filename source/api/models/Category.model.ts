@@ -3,7 +3,6 @@ import mongoose from "mongoose";
 export interface CategoryData {
     category: string;
     displayName: string;
-    image: string;
     slug: string;
 }
 
