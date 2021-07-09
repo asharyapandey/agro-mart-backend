@@ -43,6 +43,15 @@ export default {
         validation: (field: string) => `${field} is required for Category.`,
     },
     product: {
+        productFetched: "Product is Fetched.",
+        productFetchError: "Couldn't fetch Products.",
+        productAdded: "Product is Added.",
+        productAddError: "Couldn't Add the Product.",
+        productDeleted: "Product is Deleted.",
+        productDeleteError: "Couldn't delete the Product.",
+        productNotFound: "Product Not Found.",
+        productUpdated: "Product is Deleted.",
+        productUpdateError: "Couldn't delete the Product.",
         validation: (field: string) => `${field} is required for Product.`,
     },
 };
