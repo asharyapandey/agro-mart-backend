@@ -8,6 +8,7 @@ import loadPassport from "../api/auth/passport";
 import unitRoutes from "../api/routes/unit.routes";
 import categoryRoutes from "../api/routes/category.routes";
 import productRoutes from "../api/routes/product.routes";
+import postRoutes from "../api/routes/post.routes";
 
 const VERSION = "/api/v1";
 
@@ -41,6 +42,7 @@ app.use(VERSION, userRoutes);
 app.use(VERSION, unitRoutes);
 app.use(VERSION, categoryRoutes);
 app.use(VERSION, productRoutes);
+app.use(VERSION, postRoutes);
 
 app.use((req: Request, res: Response) => {
     return res.status(404).json({

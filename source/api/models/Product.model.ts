@@ -1,9 +1,11 @@
 import mongoose from "mongoose";
+import { CategoryDocument } from "./Category.model";
+import { UnitDocument } from "./Unit.model";
 
 export interface ProductData {
     productName: string;
-    unit: string;
-    category: string;
+    unit: string | UnitDocument;
+    category: string | CategoryDocument;
     slug: string;
     kalimatiPrice: number;
 }

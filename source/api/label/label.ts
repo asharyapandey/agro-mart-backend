@@ -54,4 +54,18 @@ export default {
         productUpdateError: "Couldn't delete the Product.",
         validation: (field: string) => `${field} is required for Product.`,
     },
+    post: {
+        postFetched: "Post/s is Fetched.",
+        postFetchError: "Couldn't fetch Post/s.",
+        postAdded: "Post/s is Added.",
+        postAddError: "Couldn't Add the Post/s.",
+        postDeleted: "Post/s is Deleted.",
+        postDeleteError: "Couldn't delete the Post/s.",
+        postNotFound: "Post/s Not Found.",
+        postUpdated: "Post/s is Deleted.",
+        postUpdateError: "Couldn't delete the Post/s.",
+        notAuthorized:
+            "Sorry! You are not authorized to perform actions on this post",
+        validation: (field: string) => `${field} is required for Post.`,
+    },
 };
