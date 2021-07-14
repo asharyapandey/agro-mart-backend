@@ -40,6 +40,8 @@ export default {
         categoryNotFound: "Category Not Found.",
         categoryUpdated: "Category is Deleted.",
         categoryUpdateError: "Couldn't delete the Category.",
+        categoryExists:
+            "Category with the same name/slug is already available.",
         validation: (field: string) => `${field} is required for Category.`,
     },
     product: {
