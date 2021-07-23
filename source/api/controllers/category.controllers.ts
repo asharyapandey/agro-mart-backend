@@ -46,7 +46,7 @@ export const searchCategory = async (req: Request, res: Response) => {
         console.error(error);
         res.status(INTERNAL_SERVER_ERROR).json({
             success: false,
-            message: label.unit.unitsFetchError,
+            message: label.category.categoryFetchError,
             developerMessage: error.message,
             result: [],
         });

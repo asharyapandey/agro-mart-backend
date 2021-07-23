@@ -8,18 +8,14 @@ export const userValidation = (data: any): ErrorType => {
         message: "",
     };
 
-    if (data.hasOwnProperty("email")) {
-        if (isEmpty(data?.email)) {
+    if (data.hasOwnProperty("phoneNumber")) {
+        if (isEmpty(data?.phoneNumber)) {
             error.status = true;
-            error.message = label.auth.validation("Email");
-        }
-        if (isEmail(data?.fullName)) {
-            error.status = true;
-            error.message = label.auth.validation("Email");
+            error.message = label.auth.validation("Phone Number");
         }
     } else {
         error.status = true;
-        error.message = label.auth.validation("Email");
+        error.message = label.auth.validation("Phone Number");
     }
 
     if (data.hasOwnProperty("fullName")) {

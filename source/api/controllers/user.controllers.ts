@@ -15,8 +15,8 @@ export const registerUser = async (
     next: NextFunction
 ) => {
     try {
-        const { email, fullName, permissionLevel, password } = req.body;
-        const isUser = await User.findOne({ email, isArchived: false });
+        const { phoneNumber, fullName, permissionLevel, password } = req.body;
+        const isUser = await User.findOne({ phoneNumber, isArchived: false });
         // user exists
         if (isUser) {
             return res.status(BAD_REQUEST).json({
@@ -36,7 +36,7 @@ export const registerUser = async (
                 });
             } else {
                 const userObj = new User({
-                    email,
+                    phoneNumber,
                     fullName,
                     permissionLevel,
                     password: hash,

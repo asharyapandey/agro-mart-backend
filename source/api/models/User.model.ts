@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 export interface UserData {
-    email: string;
+    phoneNumber: string;
     password: string;
     fullName: string;
     image: string;
@@ -16,7 +16,7 @@ export interface UserDocument extends UserData, mongoose.Document {
 
 export const userSchema = new mongoose.Schema(
     {
-        email: {
+        phoneNumber: {
             type: String,
             required: true,
             unique: true,

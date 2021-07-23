@@ -24,12 +24,12 @@ const loadPassport = (app: Application) => {
     passport.use(
         new LocalStrategy(
             {
-                usernameField: "email",
+                usernameField: "phoneNumber",
                 passwordField: "password",
             },
-            async (email: string, password: string, done: any) => {
+            async (phoneNumber: string, password: string, done: any) => {
                 try {
-                    const newUser = await User.findOne({ email });
+                    const newUser = await User.findOne({ phoneNumber });
                     if (newUser) {
                         const plainPassword = password;
                         const hashedPassword = newUser.password;
