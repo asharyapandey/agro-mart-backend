@@ -15,12 +15,19 @@ import {
     deletePost,
 } from "../controllers/post.controllers";
 import { validatePostBody } from "../middleware/post.middlewares";
+import { postUpload } from "../middleware/multer.middlewares";
 
 const postRoutes = express.Router();
 
 postRoutes.get(GET_POSTS_ROUTE, authenticateToken, searchPost);
 
-postRoutes.post(ADD_POST_ROUTE, authenticateToken, validatePostBody, addPost);
+postRoutes.post(
+    ADD_POST_ROUTE,
+    authenticateToken,
+    postUpload.single("image"),
+    // validatePostBody,
+    addPost
+);
 
 postRoutes.put(
     EDIT_DELETE_POST_ROUTE,

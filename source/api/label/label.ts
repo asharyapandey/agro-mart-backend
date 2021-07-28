@@ -11,6 +11,7 @@ export default {
             "Either Email or password is incorrect. Please Try Again.",
 
         noTokenFound: "No Token Found in header.",
+        noUserFound: "User Is not Found.",
         tokenDidNotMatch: "Token sent did not match.",
         authenticationFailed: "Could not authenticate user.",
         invalidToken: "The token provided is invalid.",

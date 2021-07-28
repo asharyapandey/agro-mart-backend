@@ -41,6 +41,7 @@ export const searchPost = async (req: Request, res: Response) => {
                     image: post.image,
                     name: post.name,
                     address: post.address,
+                    description: post.description,
                     user: post.userID,
                     createdAt: post.createdAt,
                     unit: (product.unit as UnitDocument).displayName,
@@ -80,15 +81,20 @@ export const searchPost = async (req: Request, res: Response) => {
 };
 
 export const addPost = async (req: Request, res: Response) => {
-    const { product, image, name, farmerPrice, address } = req.body;
+    const { product, name, farmerPrice, address, description } = req.body;
 
     try {
+        let image = "";
+        if (req.file) {
+            image = req.file.path;
+        }
         const postObj = new Post({
             product,
             image,
             name,
-            farmerPrice,
+            farmerPrice: parseFloat(farmerPrice),
             address,
+            description,
             userID: req.currentUser._id,
         });
         let post = await postObj.save();
@@ -108,6 +114,7 @@ export const addPost = async (req: Request, res: Response) => {
                 image: post.image,
                 name: post.name,
                 address: post.address,
+                description: post.description,
                 user: post.userID,
                 createdAt: post.createdAt,
                 unit: (product.unit as UnitDocument).displayName,
@@ -158,6 +165,7 @@ export const deletePost = async (req: Request, res: Response) => {
                     image: post.image,
                     name: post.name,
                     address: post.address,
+                    description: post.description,
                     user: post.userID,
                     createdAt: post.createdAt,
                     unit: (product.unit as UnitDocument).displayName,
@@ -196,7 +204,8 @@ export const deletePost = async (req: Request, res: Response) => {
 
 export const editPost = async (req: Request, res: Response) => {
     const postID = req.params.postID;
-    const { product, image, name, farmerPrice, address } = req.body;
+    const { product, image, name, farmerPrice, address, description } =
+        req.body;
     const user = req.currentUser;
 
     try {
@@ -212,6 +221,7 @@ export const editPost = async (req: Request, res: Response) => {
                 currentPost.image = image;
                 currentPost.farmerPrice = farmerPrice;
                 currentPost.address = address;
+                currentPost.description = description;
 
                 const updatedPost = await currentPost.save();
                 const post = (await Post.findOne({ _id: updatedPost._id })
@@ -229,6 +239,7 @@ export const editPost = async (req: Request, res: Response) => {
                     image: post.image,
                     name: post.name,
                     address: post.address,
+                    description: post.description,
                     user: post.userID,
                     createdAt: post.createdAt,
                     unit: (postProduct.unit as UnitDocument).displayName,

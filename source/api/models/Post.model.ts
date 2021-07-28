@@ -8,6 +8,7 @@ export interface PostData {
     address: string;
     farmerPrice: string;
     image: string;
+    description: string;
     userID: string | UserDocument;
 }
 
@@ -38,6 +39,10 @@ export const postSchema = new mongoose.Schema(
             default: 0,
         },
         image: {
+            type: String,
+            required: true,
+        },
+        description: {
             type: String,
             required: true,
         },
