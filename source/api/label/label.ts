@@ -16,6 +16,8 @@ export default {
         authenticationFailed: "Could not authenticate user.",
         invalidToken: "The token provided is invalid.",
         accessNotGranted: "Access not granted to perform the operation.",
+        error: "Something went wrong, Please Try Again.",
+        notAdmin: "Sorry, Only Admins can login here.",
 
         validation: (field: string) => `${field} is required for Registration`,
     },

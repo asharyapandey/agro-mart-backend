@@ -6,16 +6,26 @@ import {
     GOOGLE_LOGIN_ROUTE,
     GOOGLE_AUTH_CALLBACK_ROUTE,
     LOCAL_LOGIN_ROUTE,
+    ADMIN_LOGIN_ROUTE,
 } from "../constants/user.constants";
-import { loginUser, registerUser } from "../controllers/user.controllers";
+import {
+    loginAdmin,
+    loginUser,
+    registerUser,
+} from "../controllers/user.controllers";
 import { SUCCESS } from "../constants/status-codes.constants";
-import { validateRegisterBody } from "../middleware/user.middlewares";
+import {
+    createSuperUser,
+    validateRegisterBody,
+} from "../middleware/user.middlewares";
 
 const userRoutes = express.Router();
 
 userRoutes.post(REGISTER_USER_ROUTE, validateRegisterBody, registerUser);
 
 userRoutes.post(LOCAL_LOGIN_ROUTE, loginUser);
+
+userRoutes.post(ADMIN_LOGIN_ROUTE, createSuperUser, loginAdmin);
 
 userRoutes.get(
     GOOGLE_LOGIN_ROUTE,

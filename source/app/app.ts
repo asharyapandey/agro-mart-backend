@@ -37,7 +37,10 @@ if (env === "development") {
 }
 
 loadPassport(app);
-
+app.use(
+    "/images",
+    express.static(path.join(__dirname, "../", "../", "images"))
+);
 // adding routes
 app.use(VERSION, userRoutes);
 app.use(VERSION, unitRoutes);

@@ -18,7 +18,7 @@ export const searchPost = async (req: Request, res: Response) => {
     const searchTerm = req?.query?.searchTerm as string;
 
     const query = {
-        address: new RegExp(searchTerm, "i"),
+        name: new RegExp(searchTerm, "i"),
         isArchived: false,
     };
 
