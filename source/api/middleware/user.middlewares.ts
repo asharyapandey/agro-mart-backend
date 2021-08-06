@@ -27,19 +27,22 @@ export const validateRegisterBody = (
 };
 
 export const createSuperUser = async (
-    req: any,
+    req: Request,
     res: Response,
     next: NextFunction
 ) => {
     try {
-        const email = "9841000000";
+        const phoneNumber = "9841000000";
         const password = "superuser123";
 
-        const userFound: any = await User.find({ isArchived: false });
+        const userFound = await User.find({ isArchived: false });
 
-        if (userFound) {
+        if (userFound.length > 0) {
             // check if superuser exists
-            const user: any = await User.findOne({ email, isArchived: false });
+            const user = await User.findOne({
+                phoneNumber,
+                isArchived: false,
+            });
             if (user) {
                 next();
             } else {
@@ -48,12 +51,11 @@ export const createSuperUser = async (
                 if (!hashedFailed) {
                     if (hashedPassword) {
                         const newUserObj = new User({
-                            email,
+                            phoneNumber,
                             password: hashedPassword,
                             image: "images/profile/user.png",
                             fullName: "superuser",
                             permissionLevel: ADMIN_PERMISSION_LEVEL,
-                            phoneNumber: "9860180332",
                         });
                         const newUser = await newUserObj.save();
                         if (newUser) {
@@ -69,12 +71,11 @@ export const createSuperUser = async (
             if (!hashedFailed) {
                 if (hashedPassword) {
                     const newUserObj = new User({
-                        email,
+                        phoneNumber,
                         password: hashedPassword,
                         image: "images/profile/user.png",
                         fullName: "superuser",
                         permissionLevel: ADMIN_PERMISSION_LEVEL,
-                        phoneNumber: "9860180332",
                     });
                     const newUser = await newUserObj.save();
                     if (newUser) {
@@ -84,6 +85,7 @@ export const createSuperUser = async (
             }
         }
     } catch (err) {
+        console.log(err);
         res.status(500).json({
             status: "Failure",
             message: label.auth.error,

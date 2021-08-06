@@ -10,12 +10,16 @@ import categoryRoutes from "../api/routes/category.routes";
 import productRoutes from "../api/routes/product.routes";
 import postRoutes from "../api/routes/post.routes";
 import uploadRoutes from "../api/routes/upload.routes";
+import cors from "cors";
 
 const VERSION = "/api/v1";
 
 const app = express();
 
 const env = process.env.NODE_ENV;
+
+// for cors
+app.use(cors());
 
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: false }));

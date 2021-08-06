@@ -24,7 +24,9 @@ export const searchProduct = async (
     try {
         const productFound = await Product.find(query)
             .skip(page * limit - limit)
-            .limit(limit);
+            .limit(limit)
+            .populate("category", "displayName")
+            .populate("unit", "displayName");
         const totalProducts = await Product.countDocuments(query);
 
         if (productFound && totalProducts > 0) {
@@ -73,13 +75,16 @@ export const addProduct = async (
             slug,
         });
         const productData = await productObj.save();
+        const newProductData = await Product.findOne({ _id: productData._id })
+            .populate("category", "displayName")
+            .populate("unit", "displayName");
 
         if (productData) {
             res.status(SUCCESS).json({
                 success: true,
                 message: label.product.productAdded,
                 developerMessage: "",
-                result: productData,
+                result: newProductData,
             });
         }
     } catch (error) {
@@ -143,11 +148,17 @@ export const editProduct = async (req: Request, res: Response) => {
             currentProduct.slug = slug;
 
             const updatedProduct = await currentProduct.save();
+            const newProductData = await Product.findOne({
+                _id: updatedProduct._id,
+            })
+                .populate("category", "displayName")
+                .populate("unit", "displayName");
+
             res.status(SUCCESS).json({
                 success: true,
                 message: label.product.productUpdated,
                 developerMessage: "",
-                result: updatedProduct,
+                result: newProductData,
             });
         } else {
             throw new Error(label.product.productNotFound);

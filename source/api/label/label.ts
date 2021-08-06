@@ -29,7 +29,7 @@ export default {
         unitsDeleted: "Unit is Deleted.",
         unitsDeleteError: "Couldn't delete the unit.",
         unitNotFound: "Unit Not Found.",
-        unitsUpdated: "Unit is Deleted.",
+        unitsUpdated: "Unit is Updated.",
         unitsUpdateError: "Couldn't delete the unit.",
         validation: (field: string) => `${field} is required for Unit.`,
     },
@@ -41,7 +41,7 @@ export default {
         categoryDeleted: "Category is Deleted.",
         categoryDeleteError: "Couldn't delete the Category.",
         categoryNotFound: "Category Not Found.",
-        categoryUpdated: "Category is Deleted.",
+        categoryUpdated: "Category is Updated.",
         categoryUpdateError: "Couldn't delete the Category.",
         categoryExists:
             "Category with the same name/slug is already available.",

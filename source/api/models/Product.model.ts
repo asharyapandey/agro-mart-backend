@@ -21,7 +21,6 @@ export const productSchema = new mongoose.Schema(
         productName: {
             type: String,
             required: true,
-            unique: true,
         },
         category: {
             type: mongoose.Schema.Types.ObjectId,

@@ -11,6 +11,7 @@ export const validateCategoryBody = (
     next: NextFunction
 ) => {
     const { status, message }: ErrorType = categoryValidation(req.body);
+    console.log("validateCategoryBody", status);
 
     if (status) {
         res.status(BAD_REQUEST).json({
@@ -31,12 +32,16 @@ export const checkCategoryUniqueness = async (
 ) => {
     const error: ErrorType = { status: false, message: "" };
     const { category, slug } = req.body;
-    const isCategory = await Category.findOne({ category, slug });
+    const isCategory = await Category.findOne({
+        category,
+        slug,
+        isArchived: false,
+    });
     if (isCategory) {
         error.status = true;
         error.message = label.category.categoryExists;
     } else {
-        next();
+        error.status = false;
     }
 
     if (error.status) {

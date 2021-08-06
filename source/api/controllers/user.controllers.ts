@@ -137,11 +137,12 @@ export const loginAdmin = async (
     res: Response,
     next: NextFunction
 ) => {
-    const { email, password } = req.body;
+    const { phoneNumber, password } = req.body;
 
     try {
+        console.log(phoneNumber, password);
         const userFound = await User.findOne({
-            email: email,
+            phoneNumber,
             permissionLevel: ADMIN_PERMISSION_LEVEL,
             isArchived: false,
         });

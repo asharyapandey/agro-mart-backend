@@ -77,6 +77,7 @@ export const addCategory = async (
             });
         }
     } catch (error) {
+        console.log("here");
         console.error(error);
         return res.status(INTERNAL_SERVER_ERROR).json({
             success: false,

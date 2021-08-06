@@ -17,7 +17,6 @@ export const categorySchema = new mongoose.Schema(
         category: {
             type: String,
             required: true,
-            unique: true,
         },
         slug: {
             type: String,
