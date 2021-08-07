@@ -11,6 +11,7 @@ import productRoutes from "../api/routes/product.routes";
 import postRoutes from "../api/routes/post.routes";
 import uploadRoutes from "../api/routes/upload.routes";
 import cors from "cors";
+import bidRoutes from "../api/routes/bid.routes";
 
 const VERSION = "/api/v1";
 
@@ -51,6 +52,7 @@ app.use(VERSION, unitRoutes);
 app.use(VERSION, categoryRoutes);
 app.use(VERSION, productRoutes);
 app.use(VERSION, postRoutes);
+app.use(VERSION, bidRoutes);
 app.use(VERSION, uploadRoutes);
 
 app.use((req: Request, res: Response) => {

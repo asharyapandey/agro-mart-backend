@@ -73,4 +73,22 @@ export default {
             "Sorry! You are not authorized to perform actions on this post",
         validation: (field: string) => `${field} is required for Post.`,
     },
+    bid: {
+        bidAdded: "Your bid was placed",
+        bidAddError: "Sorry, Your bid couldn't be placed",
+        bidEdited: "Your bid was Edited",
+        bidEditError: "Sorry, Your bid couldn't be Edited.",
+        bidDeleted: "Your bid was Deleted.",
+        bidDeleteError: "Sorry, Your bid couldn't be Deleted.",
+        bidFetched: "Bid/s was fetched.",
+        bidFetchError: "Sorry,bid/s couldn't be Fetched.",
+        bidAccepted: "Bid/s was Accepted.",
+        bidAcceptError: "Sorry, bid/s couldn't be Accepted.",
+        bidRejected: "Bid/s was Accepted.",
+        bidRejectedError: "Sorry, bid/s couldn't be Rejected.",
+        bidNotFound: "Sorry, The bid is not on our servers.",
+        notAuthorized:
+            "Sorry! You are not authorized to perform actions on this bid.",
+        validation: (field: string) => `${field} is required for Bidding.`,
+    },
 };

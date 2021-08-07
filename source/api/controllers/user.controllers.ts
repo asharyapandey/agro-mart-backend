@@ -45,7 +45,7 @@ export const registerUser = async (
                     fullName,
                     permissionLevel,
                     password: hash,
-                    image: "dummy.png",
+                    image: "images/profile/user.png",
                 });
                 const user = await userObj.save();
                 return res.status(CREATED).json({
