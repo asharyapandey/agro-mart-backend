@@ -9,6 +9,7 @@ import {
 import label from "../label/label";
 import Bid, { BidDocument } from "../models/Bid.model";
 import Post from "../models/Post.model";
+import { UserDocument } from "../models/User.model";
 import { trimObject } from "../utilities/helperFunctions";
 
 export const searchBid = async (req: Request, res: Response) => {
@@ -57,6 +58,7 @@ export const searchBid = async (req: Request, res: Response) => {
                 result: addedBids,
                 totalCount: totalBid,
                 maxBid,
+                isPostBidAccepted,
             });
         } else {
             return res.status(SUCCESS).json({
@@ -95,10 +97,9 @@ export const addBid = async (req: Request, res: Response) => {
                 belongsTo: post.userID,
             });
             const bid = await bidObj.save();
-            const newBid = await Bid.findOne({ _id: bid._id }).populate(
-                "userID",
-                "email fullName image"
-            );
+            const newBid = await Bid.findOne({ _id: bid._id })
+                .populate("userID", "email fullName image")
+                .populate("belongsTo", "fullName email image");
             return res.status(CREATED).json({
                 success: true,
                 message: label.bid.bidAdded,
@@ -129,10 +130,13 @@ export const deleteBid = async (req: Request, res: Response) => {
     const user = req.currentUser;
 
     try {
-        const bid = await Bid.findOne({ _id: bidID, isArchived: false });
+        const bid = await Bid.findOne({ _id: bidID, isArchived: false })
+            .populate("userID", "email fullName image")
+            .populate("belongsTo", "fullName email image");
 
         if (bid) {
-            if (bid.userID.toString() === user._id.toString()) {
+            const bidUser = bid.userID as UserDocument;
+            if (bidUser._id.toString() === user._id.toString()) {
                 bid.isArchived = true;
                 const deletedBid = await bid.save();
                 // Formatting Return Data
@@ -180,10 +184,9 @@ export const editBid = async (req: Request, res: Response) => {
                 bid.status = "PENDING";
                 const updatedBid = await bid.save();
                 // Formatting Return Data
-                const newBid = await Bid.findOne({ _id: bidID }).populate(
-                    "userID",
-                    "email fullName image"
-                );
+                const newBid = await Bid.findOne({ _id: bidID })
+                    .populate("userID", "email fullName image")
+                    .populate("belongsTo", "fullName email image");
                 return res.status(SUCCESS).json({
                     success: true,
                     message: label.bid.bidEdited,
@@ -226,14 +229,18 @@ export const changeBidStatus = async (req: Request, res: Response) => {
                 const updatedBid = await bid.save();
                 // Formatting Return Data
                 const message =
-                    status === "VERIFIED"
+                    status === "ACCEPTED"
                         ? label.bid.bidAccepted
                         : label.bid.bidRejected;
+
+                const newBid = await Bid.findOne({ _id: bidID })
+                    .populate("userID", "email fullName image")
+                    .populate("belongsTo", "fullName email image");
                 return res.status(SUCCESS).json({
                     success: true,
                     message,
                     developerMessage: "",
-                    result: updatedBid,
+                    result: newBid,
                 });
             } else {
                 return res.status(UNAUTHORIZED).json({

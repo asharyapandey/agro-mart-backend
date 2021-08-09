@@ -5,6 +5,7 @@ import {
     SUCCESS,
 } from "../constants/status-codes.constants";
 import label from "../label/label";
+import Bid from "../models/Bid.model";
 import { CategoryDocument } from "../models/Category.model";
 import Post, { PostDocument } from "../models/Post.model";
 import { ProductDocument } from "../models/Product.model";
@@ -33,24 +34,30 @@ export const searchPost = async (req: Request, res: Response) => {
 
         if (postFound && totalPosts > 0) {
             // Formatting Return Data
-            const trimmedResult = postFound.map((post) => {
-                const product = post.product as ProductDocument;
-                return {
-                    _id: post.id,
-                    farmerPrice: post.farmerPrice,
-                    image: post.image,
-                    name: post.name,
-                    address: post.address,
-                    description: post.description,
-                    user: post.userID,
-                    createdAt: post.createdAt,
-                    unit: (product.unit as UnitDocument).displayName,
-                    category: (product.category as CategoryDocument)
-                        .displayName,
-                    productName: product.productName,
-                    kalimatiPrice: product.kalimatiPrice,
-                };
-            });
+            const trimmedResult = await Promise.all(
+                postFound.map(async (post) => {
+                    const product = post.product as ProductDocument;
+                    const totalBids = await Bid.countDocuments({
+                        post: post._id,
+                    });
+                    return {
+                        _id: post.id,
+                        farmerPrice: post.farmerPrice,
+                        image: post.image,
+                        name: post.name,
+                        address: post.address,
+                        description: post.description,
+                        user: post.userID,
+                        createdAt: post.createdAt,
+                        unit: (product.unit as UnitDocument).displayName,
+                        category: (product.category as CategoryDocument)
+                            .displayName,
+                        productName: product.productName,
+                        kalimatiPrice: product.kalimatiPrice,
+                        totalBids,
+                    };
+                })
+            );
             return res.status(SUCCESS).json({
                 success: true,
                 message: label.post.postFetched,

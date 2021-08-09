@@ -96,6 +96,7 @@ export const loginUser = async (
                         result: [],
                         token: token,
                         permissionLevel: userFound.permissionLevel,
+                        userID: userFound._id,
                     });
                 } else {
                     res.status(INTERNAL_SERVER_ERROR).json({

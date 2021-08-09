@@ -12,7 +12,9 @@ export const validateRegisterBody = (
     res: Response,
     next: NextFunction
 ) => {
-    const { status, message }: ErrorType = userValidation(req.body);
+    const { status, message }: ErrorType = userValidation(
+        JSON.parse(JSON.stringify(req.body))
+    );
 
     if (status) {
         res.status(BAD_REQUEST).json({
