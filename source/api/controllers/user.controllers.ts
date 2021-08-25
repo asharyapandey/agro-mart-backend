@@ -344,11 +344,17 @@ export const changePassword = async (req: Request, res: Response) => {
                     user.password = hashedPassword.hash;
                     const updatedUser = await user.save();
 
+                    const returnData = {
+                        _id: updatedUser?._id,
+                        fullName: updatedUser?.fullName,
+                        image: updatedUser?.image,
+                        phoneNumber: updatedUser?.phoneNumber,
+                    };
                     return res.status(SUCCESS).json({
                         success: true,
                         message: label.auth.passwordChanged,
                         developerMessage: "",
-                        result: updatedUser,
+                        result: returnData,
                     });
                 } else {
                     throw new Error(label.auth.hashPasswordError);
