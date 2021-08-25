@@ -11,17 +11,20 @@ import Post, { PostDocument } from "../models/Post.model";
 import { ProductDocument } from "../models/Product.model";
 import { UnitDocument } from "../models/Unit.model";
 import { UserDocument } from "../models/User.model";
+import { trimObject } from "../utilities/helperFunctions";
 
 export const searchPost = async (req: Request, res: Response) => {
     const page: number = parseInt(req?.query.page as string) || 1;
     const limit: number = parseInt(req?.query.limit as string) || 0;
 
     const searchTerm = req?.query?.searchTerm as string;
+    const userID = req?.query?.userID as string;
 
-    const query = {
+    const query = trimObject({
         name: new RegExp(searchTerm, "i"),
+        userID,
         isArchived: false,
-    };
+    });
 
     try {
         const postFound = await Post.find(query)
@@ -39,6 +42,7 @@ export const searchPost = async (req: Request, res: Response) => {
                     const product = post.product as ProductDocument;
                     const totalBids = await Bid.countDocuments({
                         post: post._id,
+                        isArchived: false,
                     });
                     return {
                         _id: post.id,

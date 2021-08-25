@@ -2,7 +2,7 @@ import multer from "multer";
 
 const fileStorageProfile = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, "images/profile_picture");
+        cb(null, "images/profile");
     },
     filename: (req, file, cb) => {
         const fileName = `PROFILE-${new Date().toDateString()}-${

@@ -13,6 +13,7 @@ import {
     generateToken,
 } from "../utilities/auth.utilities";
 import { ADMIN_PERMISSION_LEVEL } from "../constants/global.constant";
+import { trimObject } from "../utilities/helperFunctions";
 
 export const registerUser = async (
     req: Request,
@@ -195,6 +196,209 @@ export const loginAdmin = async (
         res.status(INTERNAL_SERVER_ERROR).json({
             success: false,
             message: label.auth.loginError,
+            developerMessage: error.message,
+            result: {},
+        });
+    }
+};
+
+export const editProfilePicture = async (req: Request, res: Response) => {
+    const userID = req.currentUser._id;
+
+    try {
+        const userData = trimObject(req.body);
+        const user = await User.findOne({
+            _id: userID,
+            isArchived: false,
+        });
+        let image = "";
+        if (req.file) {
+            image = req.file.path;
+        } else {
+            return res.status(BAD_REQUEST).json({
+                success: false,
+                message: label.auth.invalidFile,
+                developerMessage: "",
+                result: {},
+            });
+        }
+
+        if (user) {
+            user.image = image;
+            const updatedUser = await user.save();
+            const returnData = {
+                _id: updatedUser?._id,
+                fullName: updatedUser?.fullName,
+                image: updatedUser?.image,
+                phoneNumber: updatedUser?.phoneNumber,
+            };
+            return res.status(SUCCESS).json({
+                success: true,
+                message: label.auth.profileUpdated,
+                developerMessage: "",
+                result: returnData,
+            });
+        } else {
+            return res.status(BAD_REQUEST).json({
+                success: false,
+                message: label.auth.noUserFound,
+                developerMessage: "",
+                result: {},
+            });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(INTERNAL_SERVER_ERROR).json({
+            success: false,
+            message: label.auth.profileNotUpdated,
+            developerMessage: error.message,
+            result: {},
+        });
+    }
+};
+
+// ------------ Edit user profile ----------------------
+export const editProfile = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    const userID = req.currentUser._id;
+
+    try {
+        const userData = trimObject(req.body);
+        const user = await User.findOne({
+            _id: userID,
+            isArchived: false,
+        });
+
+        if (user) {
+            const updatedUser = await User.findOneAndUpdate(
+                { _id: userID },
+                {
+                    $set: userData,
+                },
+                { new: true }
+            );
+            const returnData = {
+                _id: updatedUser?._id,
+                fullName: updatedUser?.fullName,
+                image: updatedUser?.image,
+                phoneNumber: updatedUser?.phoneNumber,
+            };
+            return res.status(SUCCESS).json({
+                success: true,
+                message: label.auth.profileUpdated,
+                developerMessage: "",
+                result: returnData,
+            });
+        } else {
+            return res.status(BAD_REQUEST).json({
+                success: false,
+                message: label.auth.noUserFound,
+                developerMessage: "",
+                result: {},
+            });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(INTERNAL_SERVER_ERROR).json({
+            success: false,
+            message: label.auth.profileNotUpdated,
+            developerMessage: error.message,
+            result: {},
+        });
+    }
+};
+
+// ------------ change password----------------------
+export const changePassword = async (req: Request, res: Response) => {
+    const userID = req.currentUser._id;
+    const { newPassword, oldPassword } = req.body;
+
+    try {
+        const user = await User.findOne({
+            _id: userID,
+            isArchived: false,
+        });
+
+        if (user) {
+            const currentPassword = user.password;
+            const isMatching = await decryptPassword(
+                oldPassword,
+                currentPassword
+            );
+            if (isMatching) {
+                // checking if old and new password is the same
+
+                if (oldPassword === newPassword) {
+                    return res.status(BAD_REQUEST).json({
+                        success: false,
+                        message: label.auth.oldAndNewAreSame,
+                        developerMessage: "",
+                        result: {},
+                    });
+                }
+                const hashedPassword = await encryptPassword(newPassword);
+                if (hashedPassword.hash) {
+                    user.password = hashedPassword.hash;
+                    const updatedUser = await user.save();
+
+                    return res.status(SUCCESS).json({
+                        success: true,
+                        message: label.auth.passwordChanged,
+                        developerMessage: "",
+                        result: updatedUser,
+                    });
+                } else {
+                    throw new Error(label.auth.hashPasswordError);
+                }
+            } else {
+                return res.status(BAD_REQUEST).json({
+                    success: false,
+                    message: label.auth.passwordDontMatch,
+                    developerMessage: "",
+                    result: {},
+                });
+            }
+        } else {
+            return res.status(BAD_REQUEST).json({
+                success: false,
+                message: label.auth.maybeSuspended,
+                developerMessage: "",
+                result: {},
+            });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(INTERNAL_SERVER_ERROR).json({
+            success: false,
+            message: label.auth.passwordChangeError,
+            developerMessage: error.message,
+            result: {},
+        });
+    }
+};
+
+export const userProfile = async (req: Request, res: Response) => {
+    const userID = req.currentUser._id;
+    try {
+        const userProfile = await User.findOne(
+            {
+                _id: userID,
+            },
+            { password: 0, permissionLevel: 0, isArchived: 0 }
+        );
+        return res.status(SUCCESS).json({
+            success: true,
+            message: label.auth.viewProfileSuccess,
+            developerMessage: "",
+            result: userProfile,
+        });
+    } catch (error) {
+        res.status(INTERNAL_SERVER_ERROR).json({
+            success: false,
+            message: label.auth.viewProfileError,
             developerMessage: error.message,
             result: {},
         });

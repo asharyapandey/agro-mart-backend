@@ -18,7 +18,29 @@ export default {
         accessNotGranted: "Access not granted to perform the operation.",
         error: "Something went wrong, Please Try Again.",
         notAdmin: "Sorry, Only Admins can login here.",
-
+        viewProfileError: "Could not view profile, Please Try Again.",
+        viewProfileSuccess: "User profile has been displayed",
+        couldNotViewUsers:
+            "Sorry, Users could not view at the moment. Please Try Again.",
+        userViewed: "All the users has been displayed",
+        noUser: "No users has been available at the moment. Please contact Admin for new Users.",
+        suspensionMessage: "Please provide a suspension message.",
+        userSuspensionError:
+            "Sorry, User has not been suspended. Please Try Again",
+        userSuspendedSuccess: "User has been suspended.",
+        alreadySuspendedUser: "This user has already suspended.",
+        profileUpdated: "Your profile has been updated successfully.",
+        profileNotUpdated:
+            "Your profile has not been updated. Please Try Again.",
+        maybeSuspended: "Sorry, the user is ether not found or is suspended.",
+        passwordChangeError: "Sorry, Your password couldn't be updated.",
+        passwordChanged: "Your password has been updated.",
+        hashPasswordError: "Couldn't hash the password.",
+        passwordDontMatch:
+            "Sorry, the password you provided doesn't match with the old password.",
+        oldAndNewAreSame:
+            "Sorry, The old password and new password can't be same.",
+        invalidFile: "Please provide a profile picture to upload.",
         validation: (field: string) => `${field} is required for Registration`,
     },
     unit: {
