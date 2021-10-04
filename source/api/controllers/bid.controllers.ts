@@ -224,32 +224,23 @@ export const changeBidStatus = async (req: Request, res: Response) => {
         const bid = await Bid.findOne({ _id: bidID, isArchived: false });
 
         if (bid) {
-            if (bid.userID.toString() === user._id.toString()) {
-                bid.status = status;
-                const updatedBid = await bid.save();
-                // Formatting Return Data
-                const message =
-                    status === "ACCEPTED"
-                        ? label.bid.bidAccepted
-                        : label.bid.bidRejected;
+            bid.status = status;
+            const updatedBid = await bid.save();
+            // Formatting Return Data
+            const message =
+                status === "ACCEPTED"
+                    ? label.bid.bidAccepted
+                    : label.bid.bidRejected;
 
-                const newBid = await Bid.findOne({ _id: bidID })
-                    .populate("userID", "email fullName image")
-                    .populate("belongsTo", "fullName email image");
-                return res.status(SUCCESS).json({
-                    success: true,
-                    message,
-                    developerMessage: "",
-                    result: newBid,
-                });
-            } else {
-                return res.status(UNAUTHORIZED).json({
-                    success: false,
-                    message: label.bid.notAuthorized,
-                    developerMessage: label.bid.notAuthorized,
-                    result: {},
-                });
-            }
+            const newBid = await Bid.findOne({ _id: bidID })
+                .populate("userID", "email fullName image")
+                .populate("belongsTo", "fullName email image");
+            return res.status(SUCCESS).json({
+                success: true,
+                message,
+                developerMessage: "",
+                result: newBid,
+            });
         } else {
             throw new Error(label.bid.bidNotFound);
         }
