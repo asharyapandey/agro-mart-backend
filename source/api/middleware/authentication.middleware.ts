@@ -37,7 +37,7 @@ export const authenticateToken = async (
                 throw new Error(label.auth.tokenDidNotMatch);
             }
         }
-    } catch (err) {
+    } catch (err: any) {
         console.log(err);
         res.status(INTERNAL_SERVER_ERROR).json({
             status: "Failure",
@@ -60,7 +60,7 @@ export const isAdmin = async (
         } else {
             throw new Error(label.auth.accessNotGranted);
         }
-    } catch (err) {
+    } catch (err: any) {
         res.status(INTERNAL_SERVER_ERROR).json({
             status: "Failure",
             message: label.auth.accessNotGranted,
@@ -82,7 +82,7 @@ export const isFarmer = async (
         } else {
             throw new Error(label.auth.accessNotGranted);
         }
-    } catch (err) {
+    } catch (err: any) {
         res.status(INTERNAL_SERVER_ERROR).json({
             status: "Failure",
             message: label.auth.accessNotGranted,

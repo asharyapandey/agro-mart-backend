@@ -42,7 +42,7 @@ export const searchCategory = async (req: Request, res: Response) => {
                 totalCount: totalCategories,
             });
         }
-    } catch (error) {
+    } catch (error: any) {
         console.error(error);
         res.status(INTERNAL_SERVER_ERROR).json({
             success: false,
@@ -76,7 +76,7 @@ export const addCategory = async (
                 result: categoryData,
             });
         }
-    } catch (error) {
+    } catch (error: any) {
         console.log("here");
         console.error(error);
         return res.status(INTERNAL_SERVER_ERROR).json({
@@ -109,7 +109,7 @@ export const deleteCategory = async (req: Request, res: Response) => {
         } else {
             throw new Error(label.category.categoryNotFound);
         }
-    } catch (error) {
+    } catch (error: any) {
         console.error(error);
         res.status(INTERNAL_SERVER_ERROR).json({
             success: false,
@@ -144,7 +144,7 @@ export const editCategory = async (req: Request, res: Response) => {
         } else {
             throw new Error(label.category.categoryNotFound);
         }
-    } catch (error) {
+    } catch (error: any) {
         console.error(error);
         res.status(INTERNAL_SERVER_ERROR).json({
             success: false,

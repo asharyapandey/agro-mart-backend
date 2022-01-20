@@ -80,7 +80,7 @@ export const searchPost = async (req: Request, res: Response) => {
                 totalCount: totalPosts,
             });
         }
-    } catch (error) {
+    } catch (error: any) {
         console.error(error);
         res.status(INTERNAL_SERVER_ERROR).json({
             success: false,
@@ -140,7 +140,7 @@ export const addPost = async (req: Request, res: Response) => {
                 result: postData,
             });
         }
-    } catch (error) {
+    } catch (error: any) {
         console.error(error);
         res.status(INTERNAL_SERVER_ERROR).json({
             success: false,
@@ -202,7 +202,7 @@ export const deletePost = async (req: Request, res: Response) => {
         } else {
             throw new Error(label.post.postNotFound);
         }
-    } catch (error) {
+    } catch (error: any) {
         console.error(error);
         res.status(INTERNAL_SERVER_ERROR).json({
             success: false,
@@ -276,7 +276,7 @@ export const editPost = async (req: Request, res: Response) => {
         } else {
             throw new Error(label.post.postNotFound);
         }
-    } catch (error) {
+    } catch (error: any) {
         console.error(error);
         res.status(INTERNAL_SERVER_ERROR).json({
             success: false,

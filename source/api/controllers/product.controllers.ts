@@ -48,7 +48,7 @@ export const searchProduct = async (
                 totalCount: totalProducts,
             });
         }
-    } catch (error) {
+    } catch (error: any) {
         console.error(error);
         res.status(INTERNAL_SERVER_ERROR).json({
             success: false,
@@ -87,7 +87,7 @@ export const addProduct = async (
                 result: newProductData,
             });
         }
-    } catch (error) {
+    } catch (error: any) {
         console.error(error);
         res.status(INTERNAL_SERVER_ERROR).json({
             success: false,
@@ -119,7 +119,7 @@ export const deleteProduct = async (req: Request, res: Response) => {
         } else {
             throw new Error(label.product.productNotFound);
         }
-    } catch (error) {
+    } catch (error: any) {
         console.error(error);
         res.status(INTERNAL_SERVER_ERROR).json({
             success: false,
@@ -163,7 +163,7 @@ export const editProduct = async (req: Request, res: Response) => {
         } else {
             throw new Error(label.product.productNotFound);
         }
-    } catch (error) {
+    } catch (error: any) {
         console.error(error);
         res.status(INTERNAL_SERVER_ERROR).json({
             success: false,
